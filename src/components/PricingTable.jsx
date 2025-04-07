@@ -4,27 +4,25 @@ const PricingTable = () => {
   const [billingPeriod, setBillingPeriod] = useState('monthly');
 
   const features = [
-    { name: 'Lead Tracking', standard: true, standardNote: '', premium: true, premiumNote: '', enterprise: true },
-    { name: 'Order Management', standard: true, premium: true, enterprise: true },
-    { name: 'Opportunity Tracking', standard: true, premium: true, enterprise: true },
-    { name: 'Quotation Generation', standard: true, premium: true, enterprise: true },
-    { name: 'Advanced Search & Filters', standard: false, premium: true, enterprise: true },
-    { name: 'Task Assignment & Tracking', standard: true, premium: true, enterprise: true },
-    { name: 'Customized Quote templates', standard: true, standardNote: '(limited)', premium: true, enterprise: true },
-    { name: 'Sales Team Performance Monitoring', standard: false, premium: true, enterprise: true },
-    { name: 'Calendar & Activity Reminders', standard: false, premium: true, enterprise: true },
-    { name: 'Purchase Order (PO) Management', standard: true, standardNote: '(limited)', premium: true, enterprise: true },
-    { name: 'One-Click Reports & Analytics', standard: true, standardNote: '(limited)', premium: true, enterprise: true },
-    { name: 'Email Integration', standard: false, premium: true, enterprise: true },
-    { name: 'Excel & Spreadsheet Import', standard: false, premium: true, enterprise: true },
-    { name: 'Secure Cloud Storage', standard: false, premium: true, enterprise: true },
+    { name: 'Excel & Spreadsheet Import', standard: true, premium: true },
+    { name: 'Lead Tracking', standard: true, standardNote: '(Up to 1500)', premium: true, premiumNote: '(Up to 3000)' },
+    { name: 'Opportunity Tracking', standard: true, premium: true },
+    { name: 'Quotation Generation', standard: true, premium: true },
+    { name: 'Order Management', standard: true, premium: true },
+    { name: 'Advanced Search & Filters', standard: true, premium: true },
+    { name: 'Task Assignment & Tracking', standard: true, premium: true },
+    { name: 'Customized Quote templates', standard: true, standardNote: '(Up to 1)', premium: true },
+    { name: 'Sales Team Performance Monitoring', standard: true, premium: true },
+    { name: 'Calendar & Activity Reminders', standard: false, premium: true },
+    { name: 'One-Click Reports & Analytics', standard: true, standardNote: '(Up to 10)', premium: true },
+    { name: 'Secure Cloud Storage', standard: true, premium: true },
   ];
 
   const plans = [
     { 
       name: 'Standard', 
       desc: 'Essential tools for small teams', 
-      users: 'Up to 10',
+      users: 'Up to 10 Users',
       monthlyPrice: '1,200', 
       yearlyPrice: '960', // 20% off
       buttonText: 'Subscribe Now', 
@@ -37,7 +35,7 @@ const PricingTable = () => {
     { 
       name: 'Premium', 
       desc: 'Advanced features for growing teams', 
-      users: 'Up to 20',
+      users: 'Up to 20 Users',
       monthlyPrice: '2,000', 
       yearlyPrice: '1,600', // 20% off
       buttonText: 'Subscribe Now', 
@@ -50,7 +48,7 @@ const PricingTable = () => {
     { 
       name: 'Enterprise', 
       desc: 'Comprehensive solution for large businesses', 
-      users: 'Based on request',
+      users: '',
       monthlyPrice: 'Contact Us', 
       yearlyPrice: 'Contact Us',
       buttonText: 'Contact Sales', 
@@ -58,18 +56,17 @@ const PricingTable = () => {
       highlighted: false, 
       tag: '',
       trial: '',
-      card: ''
+      card: '',
     },
   ];
 
   const FeatureIcon = ({ available, limited }) => {
     if (!available) return <span className="text-red-500 font-medium">✗</span>;
-    if (limited) return <span className="text-yellow-500 font-medium">⚠️</span>;
     return <span className="text-green-500 font-medium">✓</span>;
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-16">
+    <div className="w-full max-w-7xl mx-auto px-4 py-16 " id="pricing">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Pricing Plans</h1>
         <p className="text-lg text-gray-600">Select a plan tailored to your business needs</p>
@@ -117,7 +114,7 @@ const PricingTable = () => {
                 <div className="mb-2">
                   <div className="flex items-baseline">
                     <span className="text-4xl font-bold text-gray-900">₹{billingPeriod === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice}</span>
-                    <span className="text-base text-gray-500 ml-2">/user/month</span>
+                    <span className="text-base text-gray-500 ml-2">/month</span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">billed {billingPeriod === 'monthly' ? 'monthly' : 'annually'}</p>
                 </div>
@@ -125,50 +122,62 @@ const PricingTable = () => {
                 <div className="mb-2">
                   <span className="text-2xl font-bold text-gray-900">{plan.monthlyPrice}</span>
                 </div>
-
               )}
               
-              
-              <p className="text-gray-600 mb-6">{plan.users} users</p>
-              
+              <p className="text-gray-600 mb-6">{plan.users}</p>
               
               <button className={`w-full ${plan.buttonClass} py-3 rounded-lg font-medium shadow-sm hover:shadow transition-all duration-200 mb-8`}>
                 {plan.buttonText}
               </button>
-
-          
-
               
-              <h3 className="font-medium text-gray-900 mb-4">Features included:</h3>
-              <div className="space-y-3">
-                {features.map((feature, index) => {
-                  const isAvailable = feature[plan.name.toLowerCase()];
-                  const isLimited = feature[`${plan.name.toLowerCase()}Note`]?.includes('limited');
-                  const featureNote = feature[`${plan.name.toLowerCase()}Note`] || '';
-                  
-                  return (
-                    <div key={index} className="flex items-start">
-                      <div className="mt-0.5 mr-3">
-                        <FeatureIcon available={isAvailable} limited={isLimited} />
-                      </div>
-                      <span className={`${isAvailable ? 'text-gray-800' : 'text-gray-500'}`}>
-                        {feature.name}
-                        {featureNote && <span className="text-gray-500 text-sm"> {featureNote}</span>}
-                      </span>
-                    </div>
-                  );
-                })}
+              {plan.name !== 'Enterprise' ? (
+                <>
+                  <h3 className="font-medium text-gray-900 mb-4">Features included:</h3>
+                  <div className="space-y-3">
+                    {features.map((feature, index) => {
+                      const planKey = plan.name.toLowerCase();
+                      const isAvailable = feature[planKey];
+                      const noteKey = `${planKey}Note`;
+                      const featureNote = feature[noteKey];
+                      const isLimited = featureNote && featureNote.includes('limited');
+                      
+                      return (
+                        <div key={index} className="flex items-start">
+                          <div className="mt-0.5 mr-3">
+                            <FeatureIcon available={isAvailable} limited={isLimited} />
+                          </div>
+                          <span className={`${isAvailable ? 'text-gray-800' : 'text-gray-500'}`}>
+                            {feature.name}
+                            {featureNote && <span className="text-gray-500 text-sm"> {featureNote}</span>}
+                          </span>
+                        </div>
+                      );
+                    })}
                     {(plan.trial || plan.card) && (
-                <div className="mb-6 p-3">
-                  {plan.trial && <p className="text-indigo-600 font-extrabold">{plan.trial}</p>}
-                  {plan.card && <p className="text-gray-500 font-medium text-sm">{plan.card}</p>}
+                      <div className="mt-6 pt-4 border-t border-gray-100">
+                        {plan.trial && <p className="text-indigo-600 font-medium">{plan.trial}</p>}
+                        {plan.card && <p className="text-gray-500 text-sm">{plan.card}</p>}
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="text-gray-800">
+                  <p className="text-lg font-medium mb-4">Features included:</p>
+                  <p className="mb-6"> <span className="text-green-500 font-medium mr-3">✓</span>Everything in the Premium plan.</p>
+                  <p className="mb-6"> <span className="text-green-500 font-medium mr-3">✓</span>Fully customizable to your needs.</p>
+
+                  <div className="pt-4 border-t  border-gray-100">
+                    <p className="text-gray-600">Contact our sales team for custom pricing and user limits.</p>
+                  </div>
                 </div>
               )}
-              </div>
             </div>
           </div>
         ))}
       </div>
+      
+     
     </div>
   );
 };

@@ -27,7 +27,7 @@ const BackToTop = () => {
 
   return (
     <button
-      className={` hidden md:block fixed bottom-5 right-5 bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg z-[96 ] ${
+      className={` hidden md:block fixed bottom-5 right-5 bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg z-[96] ${
         visible ? "block" : "hidden"
       }`}
       onClick={scrollToTop}

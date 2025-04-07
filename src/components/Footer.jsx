@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-indigo-600 text-white p-4 text-center">
+    <footer className="bg-indigo-600 text-white p-4 text-center container mx-auto">
       <div className=" mx-auto">
         <div className="flex justify-center items-center space-x-2 mb-2">
           <a href="/terms" className="hover:underline">Terms of Service</a>

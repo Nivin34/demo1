@@ -18,7 +18,6 @@ export default function Main() {
       <div className="w-[1536px] h-[768px]  bg-cover bg-no-repeat absolute top-[79px] left-[-37px] z-[2]" />
       <BrowserRouter>
       <Header />
-      
       <main>
         <Hero />
         <ToolsSection />
